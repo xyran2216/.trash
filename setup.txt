@@ -1,0 +1,8 @@
+• COMMAND INSTALL MODULE
+
+npm install colors minimist node-fetch socks hpack user-agents axios header-generator fake-useragent net http2 tls cluster os url crypto dns fs util http path v8 https
+
+• COMMAND INSTALL NODE V20
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+
+sudo apt install -y nodejs
